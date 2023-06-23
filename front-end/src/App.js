@@ -1,14 +1,13 @@
-import React from 'react'
-import { createClient, Provider } from 'urql'
+import React from 'react';
+import Habit from './components/Habit';
 
-const client = createClient({
-  url: 'http://localhost:4000/'
-})
+function App() {
+  return (
+   <div>
+samisams
+<Habit/>
+   </div>
+  );
+}
 
-const App = () => (
-  <Provider value={client}>
-    <div>Streaks App</div>
-  </Provider>
-)
-
-export default App
+export default App;

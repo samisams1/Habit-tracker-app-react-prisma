@@ -1,0 +1,31 @@
+import { Flex, Text } from '@chakra-ui/core'
+import React from 'react'
+import { useQuery } from 'urql'
+import { LIST_ALL_HABITS_QUERY } from '../graphql/index'
+import { Error, Habit, Loading } from './index'
+
+export const ListAllHabits = () => {
+  const [{ fetching, error, data }] = useQuery({ query: LIST_ALL_HABITS_QUERY })
+
+  if (fetching) return <Loading />
+  if (error) return <Error />
+  const noHabits = !data.habits.length
+
+  return (
+    <Flex
+      justify='center'
+      align='center'
+      flexWrap='wrap'
+      flexDirection={noHabits ? 'column' : 'row'}
+    >
+      {noHabits && (
+        <Text fontWeight='bold' fontSize='3xl' color='tomato'>
+          You currently track 0 habits. Add one.
+        </Text>
+      )}
+      {data.habits.map((habit, i) => (
+        <Habit key={habit.id} index={i} habit={habit} />
+      ))}
+    </Flex>
+  )
+}
