@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-
+import { ThemeProvider, CSSReset } from '@chakra-ui/core'
 import {
   ApolloProvider,
   ApolloClient,
@@ -20,7 +20,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
+    <ThemeProvider>
+    <CSSReset />
     <App />
+    </ThemeProvider>
+  
   </ApolloProvider>,
   document.getElementById('root')
 );

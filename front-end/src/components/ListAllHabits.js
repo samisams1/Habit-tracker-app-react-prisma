@@ -1,17 +1,17 @@
+import { useQuery } from '@apollo/client'
 import { Flex, Text } from '@chakra-ui/core'
 import React from 'react'
-import { useQuery } from 'urql'
 import { LIST_ALL_HABITS_QUERY } from '../graphql/index'
 import { Error, Habit, Loading } from './index'
 
 export const ListAllHabits = () => {
-  const [{ fetching, error, data }] = useQuery({ query: LIST_ALL_HABITS_QUERY })
 
-  if (fetching) return <Loading />
+  const { loading, error, data } = useQuery(LIST_ALL_HABITS_QUERY);
+  console.log(data)
+  if (loading) return <Loading />
   if (error) return <Error />
   const noHabits = !data.habits.length
-
-  return (
+    return (
     <Flex
       justify='center'
       align='center'
@@ -24,7 +24,7 @@ export const ListAllHabits = () => {
         </Text>
       )}
       {data.habits.map((habit, i) => (
-        <Habit key={habit.id} index={i} habit={habit} />
+        <h1>{habit.name}</h1>
       ))}
     </Flex>
   )

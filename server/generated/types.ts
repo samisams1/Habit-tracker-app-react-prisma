@@ -33,6 +33,12 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Habit: { // root type
+    id?: string | null; // ID
+    name?: string | null; // String
+    streak?: string | null; // String
+  }
+  Mutation: {};
   Query: {};
 }
 
@@ -47,14 +53,32 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Habit: { // field return type
+    id: string | null; // ID
+    name: string | null; // String
+    streak: string | null; // String
+  }
+  Mutation: { // field return type
+    deleteHabit: NexusGenRootTypes['Habit'] | null; // Habit
+  }
   Query: { // field return type
-    firstQuery: string | null; // String
+    habit: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
+    habits: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Habit: { // field return type name
+    id: 'ID'
+    name: 'String'
+    streak: 'String'
+  }
+  Mutation: { // field return type name
+    deleteHabit: 'Habit'
+  }
   Query: { // field return type name
-    firstQuery: 'String'
+    habit: 'Habit'
+    habits: 'Habit'
   }
 }
 
