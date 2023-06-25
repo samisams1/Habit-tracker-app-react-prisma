@@ -34,7 +34,7 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Habit: { // root type
-    id?: string | null; // ID
+    id?: string | null; // String
     name?: string | null; // String
     streak?: string | null; // String
   }
@@ -54,14 +54,18 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Habit: { // field return type
-    id: string | null; // ID
+    id: string | null; // String
     name: string | null; // String
     streak: string | null; // String
   }
   Mutation: { // field return type
+    createHabit: NexusGenRootTypes['Habit'] | null; // Habit
     deleteHabit: NexusGenRootTypes['Habit'] | null; // Habit
+    incrementStreak: NexusGenRootTypes['Habit'] | null; // Habit
+    updateHabit: NexusGenRootTypes['Habit'] | null; // Habit
   }
   Query: { // field return type
+    findHabitByName: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
     habit: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
     habits: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
   }
@@ -69,20 +73,49 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Habit: { // field return type name
-    id: 'ID'
+    id: 'String'
     name: 'String'
     streak: 'String'
   }
   Mutation: { // field return type name
+    createHabit: 'Habit'
     deleteHabit: 'Habit'
+    incrementStreak: 'Habit'
+    updateHabit: 'Habit'
   }
   Query: { // field return type name
+    findHabitByName: 'Habit'
     habit: 'Habit'
     habits: 'Habit'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createHabit: { // args
+      name?: string | null; // String
+      streak?: number | null; // Int
+    }
+    deleteHabit: { // args
+      id?: string | null; // String
+    }
+    incrementStreak: { // args
+      name?: string | null; // String
+    }
+    updateHabit: { // args
+      id?: string | null; // String
+      name?: string | null; // String
+      streak?: number | null; // Int
+    }
+  }
+  Query: {
+    findHabitByName: { // args
+      name?: string | null; // String
+    }
+    habit: { // args
+      id?: string | null; // ID
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {

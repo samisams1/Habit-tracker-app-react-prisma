@@ -1,8 +1,10 @@
-import { useQuery } from '@apollo/client'
-import { Badge, Box, Flex, Text } from '@chakra-ui/core'
 import React from 'react'
-import { INCREMENT_STREAK_MUTATION } from '../graphql/incrementStreak'
-import { LIST_ALL_HABITS_QUERY } from '../graphql/listAllHabits'
+import { useMutation } from '@apollo/client'
+import { Badge, Box, Flex, Text } from '@chakra-ui/core'
+import { INCREMENT_STREAK_MUTATION } from '../graphql/index'
+import { getIcon } from '../utils/index'
+import { DeleteHabit } from './DeleteHabit'
+
 const colors = [
   'tomato',
   'green.400',
@@ -17,27 +19,33 @@ const colors = [
 ]
 
 export const Habit = ({ index, habit }) => {
-  //const { id, name, streak } = habit
+  const { id, name, streak } = habit
   const bgColor = colors[index % colors.length]
-  const { loading, error, data } = useQuery(LIST_ALL_HABITS_QUERY);
-  if (loading) return <p>Loading...</p>
+  //const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION) // eslint-disable-line no-unused-vars
+  //const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION) // eslint-disable-line no-unused-vars
+  //const [incrementTrackViews] = useMutation(INCREMENT_STREAK_MUTATION);
+  const [incrementTrackViews] = useMutation(INCREMENT_STREAK_MUTATION, {
+    variables: { name: name },
+    onCompleted: (data) => {
+      console.log(data);
+    },
+  });
   return (
-    <div>
-      <Flex
-       align='center'
-       justify='flex-end'
-       direction='column'
-       //bg={bgColor}
-       width='300px'
-       height='300px'
-       borderRadius='40px'
-       margin='16px'
-       padding='16px'
-      >
-        
-    <Text fontWeight='hairline' fontSize='3xl' textAlign='center'>
-      sasaw
-      <Badge
+    <Flex
+    align='center'
+    justify='flex-end'
+    direction='column'
+    bg={bgColor}
+    width='300px'
+    height='300px'
+    borderRadius='40px'
+    margin='16px'
+    padding='16px'
+    >
+     <Box as={getIcon(name)} size='144px' />
+      <Text fontWeight='hairline' fontSize='3xl' textAlign='center'>
+        {name}
+        <Badge
           as='span'
           fontWeight='hairline'
           fontSize='xl'
@@ -46,14 +54,12 @@ export const Habit = ({ index, habit }) => {
           px='3'
           textTransform='lowercase'
           cursor='pointer'
-          //onClick={() => executeMutation({ name })}
+          onClick={() => incrementTrackViews}
         >
-          {"streak"}
+          {streak +  name}
         </Badge>
-     </Text>
-      </Flex>
-    </div>
+        <DeleteHabit id={id} name={name} />
+      </Text>
+    </Flex>
   )
 }
-
-export default Habit

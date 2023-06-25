@@ -1,11 +1,10 @@
-const { objectType } = require('nexus') 
+import { idArg, objectType } from "nexus";
 
 export const Habit = objectType({
-    name: 'Habit',
+    name:"Habit",
     definition(t) {
-      t.id('id');
-      t.string('name');
-      t.string('streak');
+       t.string('id')
+       t.string('name')
+       t.string('streak')
     },
-  })
- 
+})

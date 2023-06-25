@@ -3,16 +3,18 @@
 
 
 type Habit {
-  id: ID
+  id: String
   name: String
   streak: String
 }
 
 type Mutation {
-  deleteHabit: Habit
+  createHabit(name: String, streak: Int): Habit
+  deleteHabit(id: String): Habit
+  updateHabit(id: String, name: String, streak: Int): Habit
 }
 
 type Query {
-  habit: [Habit]
+  habit(id: ID): [Habit]
   habits: [Habit]
 }

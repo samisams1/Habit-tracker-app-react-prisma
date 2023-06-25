@@ -3,7 +3,7 @@ import { Flex, Text } from '@chakra-ui/core'
 import React from 'react'
 import { LIST_ALL_HABITS_QUERY } from '../graphql/index'
 import { Error, Habit, Loading } from './index'
-
+import { CreateHabit } from './index'
 export const ListAllHabits = () => {
 
   const { loading, error, data } = useQuery(LIST_ALL_HABITS_QUERY);
@@ -23,8 +23,10 @@ export const ListAllHabits = () => {
           You currently track 0 habits. Add one.
         </Text>
       )}
+      <CreateHabit/>
       {data.habits.map((habit, i) => (
-        <h1>{habit.name}</h1>
+        <h1>{habit.id}</h1>,
+        <Habit key={habit.id} index={i} habit={habit} />
       ))}
     </Flex>
   )
