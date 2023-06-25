@@ -21,15 +21,9 @@ const colors = [
 export const Habit = ({ index, habit }) => {
   const { id, name, streak } = habit
   const bgColor = colors[index % colors.length]
-  //const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION) // eslint-disable-line no-unused-vars
-  //const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION) // eslint-disable-line no-unused-vars
-  //const [incrementTrackViews] = useMutation(INCREMENT_STREAK_MUTATION);
-  const [incrementTrackViews] = useMutation(INCREMENT_STREAK_MUTATION, {
-    variables: { name: name },
-    onCompleted: (data) => {
-      console.log(data);
-    },
-  });
+ // const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION) // eslint-disable-line no-unused-vars
+  const [res, executeMutation] = useMutation(INCREMENT_STREAK_MUTATION)
+  console.log({ res })
   return (
     <Flex
     align='center'
@@ -54,9 +48,9 @@ export const Habit = ({ index, habit }) => {
           px='3'
           textTransform='lowercase'
           cursor='pointer'
-          onClick={() => incrementTrackViews}
+          onClick={() => executeMutation({name:"sasaw" })}
         >
-          {streak +  name}
+          {streak}
         </Badge>
         <DeleteHabit id={id} name={name} />
       </Text>

@@ -33,6 +33,10 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  AuthPayload: { // root type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Habit: { // root type
     id?: string | null; // String
     name?: string | null; // String
@@ -40,6 +44,12 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  User: { // root type
+    email?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    password?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -53,6 +63,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  AuthPayload: { // field return type
+    token: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+  }
   Habit: { // field return type
     id: string | null; // String
     name: string | null; // String
@@ -62,6 +76,8 @@ export interface NexusGenFieldTypes {
     createHabit: NexusGenRootTypes['Habit'] | null; // Habit
     deleteHabit: NexusGenRootTypes['Habit'] | null; // Habit
     incrementStreak: NexusGenRootTypes['Habit'] | null; // Habit
+    login: NexusGenRootTypes['AuthPayload']; // AuthPayload!
+    signup: NexusGenRootTypes['AuthPayload']; // AuthPayload!
     updateHabit: NexusGenRootTypes['Habit'] | null; // Habit
   }
   Query: { // field return type
@@ -69,9 +85,19 @@ export interface NexusGenFieldTypes {
     habit: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
     habits: Array<NexusGenRootTypes['Habit'] | null> | null; // [Habit]
   }
+  User: { // field return type
+    email: string | null; // String
+    id: string | null; // ID
+    name: string | null; // String
+    password: string | null; // String
+  }
 }
 
 export interface NexusGenFieldTypeNames {
+  AuthPayload: { // field return type name
+    token: 'String'
+    user: 'User'
+  }
   Habit: { // field return type name
     id: 'String'
     name: 'String'
@@ -81,12 +107,20 @@ export interface NexusGenFieldTypeNames {
     createHabit: 'Habit'
     deleteHabit: 'Habit'
     incrementStreak: 'Habit'
+    login: 'AuthPayload'
+    signup: 'AuthPayload'
     updateHabit: 'Habit'
   }
   Query: { // field return type name
     findHabitByName: 'Habit'
     habit: 'Habit'
     habits: 'Habit'
+  }
+  User: { // field return type name
+    email: 'String'
+    id: 'ID'
+    name: 'String'
+    password: 'String'
   }
 }
 
@@ -101,6 +135,15 @@ export interface NexusGenArgTypes {
     }
     incrementStreak: { // args
       name?: string | null; // String
+    }
+    login: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+    signup: { // args
+      email: string; // String!
+      name: string; // String!
+      password: string; // String!
     }
     updateHabit: { // args
       id?: string | null; // String

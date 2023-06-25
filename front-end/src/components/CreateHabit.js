@@ -21,9 +21,10 @@ import {
   import { CREATE_HABIT_MUTATION } from '../graphql/index'
   
   export const CreateHabit = () => {
-    const { handleSubmit, register } = useForm()
+    //const { handleSubmit, register } = useForm()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [res, executeMutation] = useMutation(CREATE_HABIT_MUTATION) // eslint-disable-line no-unused-vars
+    
   
     const initialRef = useRef()
     const finalRef = useRef()

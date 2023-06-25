@@ -1,3 +1,5 @@
 export * from "./Habit"
 export * from "./Mutation"
 export * from "./Query"
+export * from "./User"
+export * from "./AutoPayload"

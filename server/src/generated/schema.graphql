@@ -2,6 +2,11 @@
 ### Do not make changes to this file directly
 
 
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
 type Habit {
   id: String
   name: String
@@ -12,6 +17,8 @@ type Mutation {
   createHabit(name: String, streak: Int): Habit
   deleteHabit(id: String): Habit
   incrementStreak(name: String): Habit
+  login(email: String!, password: String!): AuthPayload!
+  signup(email: String!, name: String!, password: String!): AuthPayload!
   updateHabit(id: String, name: String, streak: Int): Habit
 }
 
@@ -19,4 +26,11 @@ type Query {
   findHabitByName(name: String): [Habit]
   habit(id: ID): [Habit]
   habits: [Habit]
+}
+
+type User {
+  email: String
+  id: ID
+  name: String
+  password: String
 }
